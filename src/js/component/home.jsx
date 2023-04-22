@@ -5,21 +5,26 @@ import React, {useState} from "react";
 const Home = () => {
 
 	const [task, setTask] = useState('');
-	const [todoList, setTodoList] = useState([]);
+	const [list, setList] = useState([]);
 
 	//Función añadir tareas
 	function addTask(e){
-		if(e.key === 'Enter') {
-			setTodoList(todoList.concat(e.target.value));	
+		if(e.key === 'Enter' && e.target.value != "") {
+			setList(list.concat(e.target.value));	
 			setTask("");
 		}
 	}
 	//Función eliminar tarea
-	function removeTask(e){
-		todoList.filter((item)=>)
-
-	}
-
+	 function removeTask(indexItem){
+	 	const newList = list.filter((item, index) => index != indexItem);
+		console.log(newList);
+	 	// setList(newList);	
+	 }
+	//Función eliminar tarea
+	// function removeTask(e){
+	// 	todoList.filter((item,index)=>index !=e);
+	// 	console.log(todoList)
+	// }
 
 
 	return (
@@ -28,10 +33,11 @@ const Home = () => {
 			<div className="vstack gap-1 col-md-5 mx-auto shadow-lg mb-5 bg-body text-center border ps-5 pt-3" style={{width:'75%'}}>
 			<input type="text"  className="border border-0" onChange={e => setTask(e.target.value)} value={task} onKeyDown={addTask} placeholder="Write a task..."/>
 			<hr className="border border-opacity-25"></hr>
-			<ul>{todoList.map((item, index) => <li key={index} onclick={removeTask(index)}> {item} <button ></button></li>)}</ul>
+			<ul>{list.map((item, index) => <li key={index} > {item} <button className="btn" onClick={removeTask(index)}></button></li>)}</ul> 
 			</div>
 		</div>
 	);
 };
 
-export default Home;index
+
+export default Home;
