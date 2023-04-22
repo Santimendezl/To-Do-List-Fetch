@@ -25,6 +25,12 @@ const Home = () => {
 	// 	todoList.filter((item,index)=>index !=e);
 	// 	console.log(todoList)
 	// }
+	//Función contador de tareas
+	// function countTasks(){
+	// 	const taskNoun = list.length !== 1 ? 'tasks': 'task';
+	// 	footerText = list.lenght + taskNoun + 'left';
+	// 	return footerText;
+	// }
 
 
 	return (
@@ -34,7 +40,8 @@ const Home = () => {
 			<input type="text"  className="border border-0" onChange={e => setTask(e.target.value)} value={task} onKeyDown={addTask} placeholder="Write a task..."/>
 			<hr className="border border-opacity-25"></hr>
 			<ul>{list.map((item, index) => <li key={index} > {item} <button className="btn" onClick={removeTask(index)}></button></li>)}</ul> 
-			</div>
+			<p>{list.length} tasks left</p>
+			</div>	
 		</div>
 	);
 };
