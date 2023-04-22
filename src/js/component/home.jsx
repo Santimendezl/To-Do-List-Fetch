@@ -16,8 +16,8 @@ const Home = () => {
 	}
 	//Función eliminar tarea
 	 function removeTask(indexItem){
-	 	const newList = list.filter((item, index) => index != indexItem);
-		console.log(newList);
+	 	const newList = list.filter((item, index) => indexItem != index);
+		console.log('hola');
 	 	// setList(newList);	
 	 }
 	//Función eliminar tarea
