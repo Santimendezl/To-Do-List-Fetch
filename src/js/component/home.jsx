@@ -1,50 +1,64 @@
 import React, {useState} from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faXmark} from '@fortawesome/free-solid-svg-icons';
 
-
-//create your first component
 const Home = () => {
 
+	//Declaración estados	
 	const [task, setTask] = useState('');
 	const [list, setList] = useState([]);
+	const [selectedTask, setSelectedTask] = useState(null);
+	const [counter, setCounter] = useState(0);
 
 	//Función añadir tareas
-	function addTask(e){
+	function handleAddTask(e){
 		if(e.key === 'Enter' && e.target.value != "") {
 			setList(list.concat(e.target.value));	
+			setCounter(counter + 1);
+			countTasks();
 			setTask("");
 		}
 	}
 	//Función eliminar tarea
-	 function removeTask(indexItem){
-	 	const newList = list.filter((item, index) => indexItem != index);
-		console.log('hola');
-	 	// setList(newList);	
+	 function handleRemoveTask(id){
+		if(selectedTask === id){
+	 	setList(list.filter((item, index) => index !== id));	
+		}	
+		setCounter(counter - 1);
+		countTasks();
 	 }
-	//Función eliminar tarea
-	// function removeTask(e){
-	// 	todoList.filter((item,index)=>index !=e);
-	// 	console.log(todoList)
-	// }
+	
 	//Función contador de tareas
-	// function countTasks(){
-	// 	const taskNoun = list.length !== 1 ? 'tasks': 'task';
-	// 	footerText = list.lenght + taskNoun + 'left';
-	// 	return footerText;
-	// }
+	function countTasks(){
+	if (counter = 0) return (footer = "No hay tareas, añadir tareas") ;
+	if (counter = 1) return (footer = "Tienes 1 tarea pendiente");
+	else return (footer = "Tienes" + counter + "tareas pendientes");	
+	}
 
 
 	return (
 		<div className="d-flex flex-column justify-content-center align-items-center mt-5" >
 			<h1>To Do List</h1>
-			<div className="vstack gap-1 col-md-5 mx-auto shadow-lg mb-5 bg-body text-center border ps-5 pt-3" style={{width:'75%'}}>
-			<input type="text"  className="border border-0" onChange={e => setTask(e.target.value)} value={task} onKeyDown={addTask} placeholder="Write a task..."/>
+			<div className="vstack gap-1 col-md-5 mx-auto shadow-lg mb-5 bg-body  border px-5 pt-3" style={{width:'75%'}}>
+			<input type="text"  
+			className="border border-0" 
+			onChange={e => setTask(e.target.value)} value={task} 
+			onKeyDown={handleAddTask} 
+			placeholder="Write a task..."/>
 			<hr className="border border-opacity-25"></hr>
-			<ul>{list.map((item, index) => <li key={index} > {item} <button className="btn" onClick={removeTask(index)}></button></li>)}</ul> 
-			<p>{list.length} tasks left</p>
+			<ul className="list-group list-group-flush ">
+				{list.map((item, index) => <li className="list-group-item" key={index} onMouseOver={() => setSelectedTask(index)}> 
+				{item} 
+				{selectedTask === index && (<button className="btn text-danger ms-auto float-end"  onClick={() => handleRemoveTask(index)}>
+					<FontAwesomeIcon icon={faXmark} />
+				</button>)}
+				</li>)}
+			</ul> 
+			<p>{counter} tasks left</p>
 			</div>	
 		</div>
 	);
 };
 
-
+// 
 export default Home;
