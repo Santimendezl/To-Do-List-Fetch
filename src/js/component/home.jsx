@@ -9,13 +9,13 @@ const Home = () => {
 	const [list, setList] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [counter, setCounter] = useState(0);
+	// const [footer, setFooter] = useState ("No hay tareas, añadir tareas")
 
 	//Función añadir tareas
 	function handleAddTask(e){
 		if(e.key === 'Enter' && e.target.value != "") {
 			setList(list.concat(e.target.value));	
 			setCounter(counter + 1);
-			countTasks();
 			setTask("");
 		}
 	}
@@ -25,14 +25,15 @@ const Home = () => {
 	 	setList(list.filter((item, index) => index !== id));	
 		}	
 		setCounter(counter - 1);
-		countTasks();
 	 }
 	
 	//Función contador de tareas
 	function countTasks(){
-	if (counter = 0) return (footer = "No hay tareas, añadir tareas") ;
-	if (counter = 1) return (footer = "Tienes 1 tarea pendiente");
-	else return (footer = "Tienes" + counter + "tareas pendientes");	
+	let footer ="ok";
+	if (counter = 0) footer = "No hay tareas, añadir tareas" ;
+	if (counter = 1) footer = "Tienes 1 tarea pendiente";
+	else  footer = "Tienes" + counter + "tareas pendientes";	
+	return footer;
 	}
 
 
@@ -54,7 +55,8 @@ const Home = () => {
 				</button>)}
 				</li>)}
 			</ul> 
-			<p>{counter} tasks left</p>
+			<p>{countTasks}</p>
+			<p>{counter}</p>
 			</div>	
 		</div>
 	);
