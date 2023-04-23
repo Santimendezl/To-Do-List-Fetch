@@ -30,10 +30,9 @@ const Home = () => {
 	//Función contador de tareas
 	function countTasks(){
 	let footer ="ok";
-	if (counter = 0) footer = "No hay tareas, añadir tareas" ;
-	if (counter = 1) footer = "Tienes 1 tarea pendiente";
-	else  footer = "Tienes" + counter + "tareas pendientes";	
-	return footer;
+	if (counter === 0) return "No hay tareas, añadir tareas" ;
+	else if (counter === 1) return "Tienes 1 tarea pendiente";
+	else  return "Tienes " + counter + " tareas pendientes";	
 	}
 
 
@@ -55,8 +54,7 @@ const Home = () => {
 				</button>)}
 				</li>)}
 			</ul> 
-			<p>{countTasks}</p>
-			<p>{counter}</p>
+			<p className="fs-6 ps-3">{countTasks()}</p>
 			</div>	
 		</div>
 	);
