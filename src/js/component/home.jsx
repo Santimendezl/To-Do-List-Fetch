@@ -37,13 +37,13 @@ const Home = () => {
 	return (
 		<div className="d-flex flex-column justify-content-center align-items-center mt-5" >
 			<h1>To Do List</h1>
-			<div className="vstack gap-1 col-md-5 mx-auto shadow-lg mb-5 bg-body  border px-5 pt-3" style={{width:'75%'}}>
+			<div className="shadow
+			 border px-5 pt-3" style={{width:'60%'}}>
 			<input type="text"  
-			className="border border-0" 
+			className="border border-0 w-100 pb-3" 
 			onChange={e => setTask(e.target.value)} value={task} 
 			onKeyDown={handleAddTask} 
 			placeholder="Añade una tarea..."/>
-			<hr className="border border-opacity-25"></hr>
 			<ul className="list-group list-group-flush ">
 				{list.map((item, index) => <li className="list-group-item" key={index} onMouseOver={() => setSelectedTask(index)}> 
 				{item} 
@@ -52,7 +52,7 @@ const Home = () => {
 				</button>)}
 				</li>)}
 			</ul> 
-			<p className="fs-6 ps-3">{countTasks()}</p>
+			<p className="fs-6 ps-3 border-top pt-3">{countTasks()}</p>
 			</div>	
 		</div>
 	);
