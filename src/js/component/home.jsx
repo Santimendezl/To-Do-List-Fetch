@@ -9,7 +9,6 @@ const Home = () => {
 	const [list, setList] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [counter, setCounter] = useState(0);
-	// const [footer, setFooter] = useState ("No hay tareas, añadir tareas")
 
 	//Función añadir tareas
 	function handleAddTask(e){
@@ -29,7 +28,6 @@ const Home = () => {
 	
 	//Función contador de tareas
 	function countTasks(){
-	let footer ="ok";
 	if (counter === 0) return "No hay tareas, añadir tareas" ;
 	else if (counter === 1) return "Tienes 1 tarea pendiente";
 	else  return "Tienes " + counter + " tareas pendientes";	
@@ -44,7 +42,7 @@ const Home = () => {
 			className="border border-0" 
 			onChange={e => setTask(e.target.value)} value={task} 
 			onKeyDown={handleAddTask} 
-			placeholder="Write a task..."/>
+			placeholder="Añade una tarea..."/>
 			<hr className="border border-opacity-25"></hr>
 			<ul className="list-group list-group-flush ">
 				{list.map((item, index) => <li className="list-group-item" key={index} onMouseOver={() => setSelectedTask(index)}> 
