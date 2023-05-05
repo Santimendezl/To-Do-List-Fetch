@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faXmark} from '@fortawesome/free-solid-svg-icons';
 
@@ -6,6 +6,7 @@ const Home = () => {
 
 	//Declaración estados	
 	const [task, setTask] = useState('');
+	// const [data, setData] = useState([]);
 	const [list, setList] = useState([]);
 	const [selectedTask, setSelectedTask] = useState(null);
 	const [counter, setCounter] = useState(0);
@@ -13,11 +14,13 @@ const Home = () => {
 	//Función añadir tareas
 	function handleAddTask(e){
 		if(e.key === 'Enter' && e.target.value != "") {
-			setList(list.concat(e.target.value));	
+			setList(list.concat({label:e.target.value, done: false}));
 			setCounter(counter + 1);
 			setTask("");
+			// setData(data.concat)
 		}
 	}
+
 	//Función eliminar tarea
 	 function handleRemoveTask(id){
 		if(selectedTask === id){
@@ -33,6 +36,19 @@ const Home = () => {
 	else  return "Tienes " + counter + " tareas pendientes";	
 	}
 
+	//Función para obtener  datos de la API
+	function getTodoList(){
+		fetch('https://assets.breatheco.de/apis/fake/todos/user/santiml')
+			.then(response => response.json())
+			.then(data => setList(data))
+			.catch(err => console.log(err));
+	}
+
+	useEffect(() => {
+		//useEffect funciona como onload y ejecuta el codigo que tiene dentro ni bien se carga el componente
+		getTodoList();
+		
+	}, []);
 
 	return (
 		<div className="d-flex flex-column justify-content-center align-items-center mt-5" >
@@ -46,7 +62,7 @@ const Home = () => {
 			placeholder="Añade una tarea..."/>
 			<ul className="list-group list-group-flush ">
 				{list.map((item, index) => <li className="list-group-item" key={index} onMouseOver={() => setSelectedTask(index)}> 
-				{item} 
+				{item.label} 
 				{selectedTask === index && (<button className="btn text-danger ms-auto float-end"  onClick={() => handleRemoveTask(index)}>
 					<FontAwesomeIcon icon={faXmark} />
 				</button>)}
